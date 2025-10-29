@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Multi-tenant model: Organization → User (via Membership)
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  domain    String?  @unique // for domain hinting (e.g., "acme.com")
+  logo      String?
+
+  // SSO Configuration (optional, for enterprise plans)
+  ssoEnabled      Boolean @default(false)
+  ssoProvider     String? // "google", "microsoft", "okta"
+  ssoConfig       Json?   // SAML/OAuth config
+
+  // Branding
+  primaryColor    String? @default("#6366f1")
+  secondaryColor  String? @default("#8b5cf6")
+
+  // Plan & Billing
+  plan            String  @default("trial") // "trial", "starter", "professional", "enterprise"
+  billingEmail    String?
+  subscriptionStatus String @default("active") // "active", "past_due", "canceled"
+
+  // Relationships
+  memberships     Membership[]
+  invites         Invite[]
+  journeys        Journey[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("organizations")
+}
+
+enum Role {
+  ORG_ADMIN
+  MANAGER
+  EMPLOYEE
+  CONTENT_EDITOR
+  BILLING_ADMIN
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  password      String    // bcrypt hashed
+  avatar        String?   @default("👤")
+  timezone      String?   @default("UTC")
+
+  // Profile
+  title         String?   // job title
+  department    String?
+  startDate     DateTime?
+  interests     String[]  @default([])
+
+  // Verification
+  emailVerified DateTime?
+
+  // Relationships
+  memberships   Membership[]
+  sessions      Session[]
+  buddyRequests BuddyMatch[] @relation("BuddyRequests")
+  assignedBuddies BuddyMatch[] @relation("AssignedBuddies")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Membership {
+  id             String   @id @default(cuid())
+  userId         String
+  organizationId String
+  role           Role     @default(EMPLOYEE)
+
+  // User belongs to Org via this Membership
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // Journey assignment for this member
+  journeyId      String?
+  journey        Journey? @relation(fields: [journeyId], references: [id])
+
+  // Progress tracking
+  currentPhase   String?  @default("confidence") // "confidence", "connection", "productivity"
+  progress       Json?    @default("{\"confidence\": 0, \"connection\": 0, \"productivity\": 0}")
+  completedTasks String[] @default([])
+  badges         String[] @default([])
+  dailyStreak    Int      @default(0)
+
+  isActive       Boolean  @default(true)
+  joinedAt       DateTime @default(now())
+
+  @@unique([userId, organizationId])
+  @@map("memberships")
+}
+
+model Invite {
+  id             String   @id @default(cuid())
+  email          String
+  organizationId String
+  role           Role     @default(EMPLOYEE)
+  invitedBy      String   // userId of inviter
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  token          String   @unique @default(cuid())
+  expiresAt      DateTime
+  acceptedAt     DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@unique([email, organizationId])
+  @@map("invites")
+}
+
+model Journey {
+  id             String   @id @default(cuid())
+  organizationId String
+  name           String
+  description    String?
+  durationDays   Int      @default(14)
+
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  // Journey content (phases, tasks, milestones)
+  content        Json     // Flexible JSON structure for phases/tasks
+
+  isActive       Boolean  @default(true)
+  memberships    Membership[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("journeys")
+}
+
+model BuddyMatch {
+  id             String   @id @default(cuid())
+  employeeId     String
+  buddyId        String
+
+  employee       User @relation("BuddyRequests", fields: [employeeId], references: [id], onDelete: Cascade)
+  buddy          User @relation("AssignedBuddies", fields: [buddyId], references: [id], onDelete: Cascade)
+
+  status         String   @default("pending") // "pending", "active", "completed"
+  matchedAt      DateTime @default(now())
+
+  @@unique([employeeId, buddyId])
+  @@map("buddy_matches")
+}
+
+// NextAuth Session model
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Active organization context
+  activeOrgId  String?  // Which org the user is currently acting in
+
+  @@map("sessions")
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+  @@map("verification_tokens")
+}
