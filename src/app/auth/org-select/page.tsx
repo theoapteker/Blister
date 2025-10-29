@@ -33,14 +33,25 @@ export default function OrgSelectPage() {
         (m) => m.organizationId === orgId
       )
 
-      // Redirect to callback URL if provided, otherwise use role-based routing
-      if (callbackUrl) {
-        router.push(callbackUrl)
-      } else if (membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER) {
-        router.push('/admin')
+      const isAdmin = membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER
+      const isAdminRoute = callbackUrl?.startsWith('/admin')
+
+      // Determine redirect destination with role-based validation
+      let destination: string
+
+      if (isAdmin) {
+        // Admins can go to any route
+        destination = callbackUrl || '/admin'
       } else {
-        router.push('/launchpad')
+        // Non-admins: use callbackUrl only if it's not an admin route
+        if (callbackUrl && !isAdminRoute) {
+          destination = callbackUrl
+        } else {
+          destination = '/launchpad'
+        }
       }
+
+      router.push(destination)
     } catch (error) {
       console.error('Error selecting organization:', error)
       setIsLoading(false)
