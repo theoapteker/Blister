@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Building2, ChevronRight, Crown, Users, User } from 'lucide-react'
 import { Role } from '@prisma/client'
@@ -10,6 +10,8 @@ import { Role } from '@prisma/client'
 export default function OrgSelectPage() {
   const { data: session, update } = useSession()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || null
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -31,12 +33,25 @@ export default function OrgSelectPage() {
         (m) => m.organizationId === orgId
       )
 
-      // Redirect based on role
-      if (membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER) {
-        router.push('/admin')
+      const isAdmin = membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER
+      const isAdminRoute = callbackUrl?.startsWith('/admin')
+
+      // Determine redirect destination with role-based validation
+      let destination: string
+
+      if (isAdmin) {
+        // Admins can go to any route
+        destination = callbackUrl || '/admin'
       } else {
-        router.push('/launchpad')
+        // Non-admins: use callbackUrl only if it's not an admin route
+        if (callbackUrl && !isAdminRoute) {
+          destination = callbackUrl
+        } else {
+          destination = '/launchpad'
+        }
       }
+
+      router.push(destination)
     } catch (error) {
       console.error('Error selecting organization:', error)
       setIsLoading(false)
