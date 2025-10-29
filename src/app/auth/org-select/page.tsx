@@ -31,11 +31,20 @@ export default function OrgSelectPage() {
         (m) => m.organizationId === orgId
       )
 
-      // Redirect based on role
-      if (membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER) {
-        router.push('/admin')
+      // Check if there's a redirect URL in the query params
+      const searchParams = new URLSearchParams(window.location.search)
+      const callbackUrl = searchParams.get('callbackUrl') || searchParams.get('from')
+
+      // If there's a callback URL, redirect there
+      if (callbackUrl && callbackUrl !== '/auth/org-select') {
+        router.push(callbackUrl)
       } else {
-        router.push('/launchpad')
+        // Otherwise, redirect based on role
+        if (membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER) {
+          router.push('/admin')
+        } else {
+          router.push('/launchpad')
+        }
       }
     } catch (error) {
       console.error('Error selecting organization:', error)
