@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useUser } from '../context/UserContext';
 import { Star, CheckCircle, Lock, Rocket, Target, Users, Zap } from 'lucide-react';

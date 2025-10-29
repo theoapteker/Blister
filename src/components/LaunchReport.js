@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { useUser } from '../context/UserContext';
 import { Download, Share, Star, CheckCircle, Target, Users, Zap, Trophy, Calendar, Clock } from 'lucide-react';
@@ -9,21 +9,15 @@ const LaunchReport = ({ currentDay }) => {
   const [reportData, setReportData] = useState(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  useEffect(() => {
-    if (currentDay >= 14) {
-      generateReport();
-    }
-  }, [currentDay]);
-
-  const generateReport = async () => {
+  const generateReport = useCallback(async () => {
     setIsGenerating(true);
-    
+
     // Simulate report generation
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     const completedTasks = tasks.filter(task => task.completed);
     const totalPoints = completedTasks.reduce((acc, task) => acc + task.points, 0);
-    
+
     const report = {
       user: user,
       currentDay: currentDay,
@@ -87,10 +81,16 @@ const LaunchReport = ({ currentDay }) => {
         'Plan your 30-day goals and objectives'
       ]
     };
-    
+
     setReportData(report);
     setIsGenerating(false);
-  };
+  }, [user, tasks, currentDay]);
+
+  useEffect(() => {
+    if (currentDay >= 14) {
+      generateReport();
+    }
+  }, [currentDay, generateReport]);
 
   const getPhaseStatus = () => {
     if (currentDay < 14) {

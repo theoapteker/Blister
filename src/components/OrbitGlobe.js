@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Camera, Download, RotateCcw, MapPin, Users, Zap } from 'lucide-react';
+import { Camera, Download, RotateCcw, Users, Zap } from 'lucide-react';
 import './OrbitGlobe.css';
 
 const OrbitGlobe = ({ currentDay, connections = [], points = [], onNodeClick }) => {

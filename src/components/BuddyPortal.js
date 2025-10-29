@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useUser } from '../context/UserContext';
-import { MessageCircle, Video, Phone, Coffee, Star, Users, Clock, Heart } from 'lucide-react';
+import { MessageCircle, Video, Phone, Coffee, Star, Users, Clock } from 'lucide-react';
 import './BuddyPortal.css';
 
 const BuddyPortal = ({ currentDay }) => {
