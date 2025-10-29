@@ -6,9 +6,10 @@
 
 .matching-section {
   background: white;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
 }
 
 .matching-header {
@@ -17,19 +18,16 @@
 }
 
 .matching-header h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .matching-header p {
-  color: #666;
-  font-size: 1.1rem;
+  color: #6b7280;
+  font-size: 1rem;
   line-height: 1.6;
   max-width: 600px;
   margin: 0 auto;
@@ -89,17 +87,16 @@
 
 .buddy-card {
   background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
   padding: 2rem;
-  transition: all 0.3s ease;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
   position: relative;
 }
 
 .buddy-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  border-color: #667eea;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border-color: #1a1a1a;
 }
 
 .buddy-card.unavailable {
@@ -182,7 +179,7 @@
 
 .compatibility-fill {
   height: 100%;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   border-radius: 3px;
   transition: width 0.3s ease;
 }
@@ -206,10 +203,10 @@
 }
 
 .interest-tag {
-  background: #667eea;
-  color: white;
+  background: #f3f4f6;
+  color: #1a1a1a;
   padding: 0.25rem 0.75rem;
-  border-radius: 12px;
+  border-radius: 6px;
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -217,18 +214,18 @@
 .select-buddy-button {
   width: 100%;
   padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
   border: none;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease;
 }
 
 .select-buddy-button:hover:not(.disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: #374151;
 }
 
 .select-buddy-button.disabled {
@@ -308,9 +305,9 @@
 }
 
 .action-button:hover {
-  border-color: #667eea;
-  color: #667eea;
-  transform: translateY(-2px);
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+  background: #f9fafb;
 }
 
 .chat-section {
@@ -348,15 +345,8 @@
 .status-dot {
   width: 8px;
   height: 8px;
-  background: #00d4aa;
+  background: #10b981;
   border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { opacity: 1; }
-  50% { opacity: 0.5; }
-  100% { opacity: 1; }
 }
 
 .chat-messages {
@@ -389,7 +379,7 @@
 }
 
 .message.user .message-content {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
 }
 
@@ -427,17 +417,16 @@
 .send-button {
   margin-left: 1rem;
   padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease;
 }
 
 .send-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: #374151;
 }
 
 .conversation-starters {
@@ -474,9 +463,8 @@
 }
 
 .starter-button:hover {
-  border-color: #667eea;
-  background: rgba(102, 126, 234, 0.05);
-  transform: translateY(-2px);
+  border-color: #1a1a1a;
+  background: #f9fafb;
 }
 
 .suggested-activities {
@@ -511,19 +499,19 @@
 }
 
 .activity-card:hover {
-  border-color: #667eea;
-  transform: translateY(-2px);
+  border-color: #1a1a1a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .activity-icon {
   width: 50px;
   height: 50px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 10px;
+  background: #f3f4f6;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #6b7280;
   flex-shrink: 0;
 }
 
@@ -562,18 +550,18 @@
 
 .start-activity-button {
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
   border: none;
   border-radius: 8px;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background 0.2s ease;
 }
 
 .start-activity-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: #374151;
 }
 
 @media (max-width: 768px) {

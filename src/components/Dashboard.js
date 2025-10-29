@@ -61,21 +61,10 @@ const Dashboard = ({ currentDay, setCurrentDay }) => {
       {/* Header */}
       <div className="dashboard-header">
         <div className="welcome-section">
-          <motion.h1
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2 }}
-          >
-            Welcome to Orbit, {user.name}! 🚀
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.3 }}
-            className="welcome-subtitle"
-          >
+          <h1>Welcome back, {user.name}</h1>
+          <p className="welcome-subtitle">
             Day {currentDay} of your 14-day launch sequence
-          </motion.p>
+          </p>
         </div>
         
         <div className="phase-indicator">
@@ -166,11 +155,8 @@ const Dashboard = ({ currentDay, setCurrentDay }) => {
         <h2>Today's Microbursts</h2>
         <div className="tasks-grid">
           {todaysTasks.map((task, index) => (
-            <motion.div
+            <div
               key={task.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
               className={`task-card ${task.completed ? 'completed' : ''}`}
             >
               <div className="task-header">
@@ -203,7 +189,7 @@ const Dashboard = ({ currentDay, setCurrentDay }) => {
                   'Start Task'
                 )}
               </button>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -212,30 +198,18 @@ const Dashboard = ({ currentDay, setCurrentDay }) => {
       <div className="quick-actions">
         <h2>Quick Actions</h2>
         <div className="actions-grid">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="action-button primary"
-          >
+          <button className="action-button primary">
             <Users size={20} />
             Meet Your Buddy
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="action-button secondary"
-          >
+          </button>
+          <button className="action-button secondary">
             <Target size={20} />
             View Orbit Map
-          </motion.button>
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="action-button secondary"
-          >
+          </button>
+          <button className="action-button secondary">
             <Star size={20} />
             Earn Badges
-          </motion.button>
+          </button>
         </div>
       </div>
     </motion.div>

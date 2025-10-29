@@ -14,20 +14,17 @@
 }
 
 .welcome-section h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #1a1a1a;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .welcome-subtitle {
-  color: #666;
-  font-size: 1.1rem;
-  font-weight: 500;
+  color: #6b7280;
+  font-size: 1rem;
+  font-weight: 400;
 }
 
 .phase-indicator {
@@ -41,27 +38,26 @@
   gap: 1rem;
   padding: 1.5rem;
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 2px solid transparent;
-  transition: all 0.3s ease;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.2s ease;
 }
 
 .phase-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 .phase-card h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin: 0 0 0.25rem 0;
 }
 
 .phase-card p {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.875rem;
+  color: #6b7280;
   margin: 0;
 }
 
@@ -75,14 +71,15 @@
 .progress-card {
   background: white;
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
 }
 
 .progress-card h3 {
-  font-size: 1.3rem;
+  font-size: 1.125rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 1.5rem;
 }
 
@@ -100,15 +97,15 @@
 
 .progress-item span:first-child {
   font-weight: 500;
-  color: #333;
+  color: #1a1a1a;
   min-width: 80px;
 }
 
 .progress-bar {
   flex: 1;
-  height: 8px;
-  background: #f0f0f0;
-  border-radius: 4px;
+  height: 6px;
+  background: #f3f4f6;
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -120,7 +117,7 @@
 
 .progress-item span:last-child {
   font-weight: 600;
-  color: #666;
+  color: #6b7280;
   min-width: 40px;
   text-align: right;
 }
@@ -138,24 +135,25 @@
   padding: 1.5rem;
   background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.2s ease;
 }
 
 .stat-card:hover {
-  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 .stat-card h3 {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: #333;
+  font-weight: 600;
+  color: #1a1a1a;
   margin: 0;
 }
 
 .stat-card p {
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.875rem;
+  color: #6b7280;
   margin: 0;
 }
 
@@ -164,9 +162,9 @@
 }
 
 .todays-tasks h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 1.5rem;
 }
 
@@ -179,20 +177,19 @@
 .task-card {
   background: white;
   padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
+  transition: box-shadow 0.2s ease;
 }
 
 .task-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
 }
 
 .task-card.completed {
-  border-color: #00d4aa;
-  background: linear-gradient(135deg, #f8fffe 0%, #f0fdfa 100%);
+  border-color: #10b981;
+  background: #f0fdf4;
 }
 
 .task-header {
@@ -205,12 +202,12 @@
 .task-icon {
   width: 40px;
   height: 40px;
-  border-radius: 10px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  background: #f3f4f6;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #6b7280;
 }
 
 .task-meta {
@@ -220,41 +217,43 @@
 }
 
 .task-duration {
-  background: #f0f0f0;
+  background: #f3f4f6;
   padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  color: #666;
+  border-radius: 4px;
+  color: #6b7280;
 }
 
 .task-points {
-  background: #ffd700;
+  background: #fef3c7;
   padding: 0.25rem 0.5rem;
-  border-radius: 6px;
-  color: #333;
-  font-weight: 600;
+  border-radius: 4px;
+  color: #92400e;
+  font-weight: 500;
 }
 
 .task-card h3 {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 0.5rem;
 }
 
 .task-card p {
-  color: #666;
+  color: #6b7280;
   margin-bottom: 1.5rem;
-  line-height: 1.5;
+  line-height: 1.6;
+  font-size: 0.875rem;
 }
 
 .task-button {
   width: 100%;
   padding: 0.75rem 1rem;
   border: none;
-  border-radius: 10px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -262,17 +261,16 @@
 }
 
 .task-button:not(.completed) {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
 }
 
 .task-button:not(.completed):hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: #374151;
 }
 
 .task-button.completed {
-  background: #00d4aa;
+  background: #10b981;
   color: white;
   cursor: not-allowed;
 }
@@ -282,9 +280,9 @@
 }
 
 .quick-actions h2 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
-  color: #333;
+  color: #1a1a1a;
   margin-bottom: 1.5rem;
 }
 
@@ -301,26 +299,31 @@
   gap: 0.5rem;
   padding: 1rem 1.5rem;
   border: none;
-  border-radius: 12px;
-  font-weight: 600;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.875rem;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 .action-button.primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
+}
+
+.action-button.primary:hover {
+  background: #374151;
 }
 
 .action-button.secondary {
   background: white;
-  color: #333;
-  border: 2px solid #e0e0e0;
+  color: #1a1a1a;
+  border: 1px solid #e5e7eb;
 }
 
-.action-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.action-button.secondary:hover {
+  background: #f9fafb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 @media (max-width: 768px) {

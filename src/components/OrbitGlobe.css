@@ -10,27 +10,25 @@
   align-items: flex-start;
   background: white;
   padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
   margin-bottom: 2rem;
   flex-wrap: wrap;
   gap: 1rem;
 }
 
 .header-content h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: white;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1a1a1a;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  letter-spacing: -0.02em;
 }
 
 .header-content p {
-  color: #666;
-  font-size: 1.1rem;
+  color: #6b7280;
+  font-size: 1rem;
   line-height: 1.6;
   max-width: 500px;
 }
@@ -58,17 +56,19 @@
 
 .globe-wrapper {
   background: white;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
   margin-bottom: 2rem;
 }
 
 .cta-section {
   background: white;
-  border-radius: 20px;
+  border-radius: 12px;
   padding: 3rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e5e7eb;
   text-align: center;
 }
 
@@ -106,25 +106,22 @@
 }
 
 .cta-button.primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: #1a1a1a;
   color: white;
 }
 
 .cta-button.primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  background: #374151;
 }
 
 .cta-button.secondary {
   background: white;
-  color: #333;
-  border: 2px solid #e0e0e0;
+  color: #1a1a1a;
+  border: 1px solid #e5e7eb;
 }
 
 .cta-button.secondary:hover {
-  border-color: #667eea;
-  color: #667eea;
-  transform: translateY(-2px);
+  background: #f9fafb;
 }
 
 /* Globe-specific styles */
@@ -225,7 +222,7 @@
 }
 
 .globe-wrapper .animate-pulse {
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  /* Pulse animation removed for cleaner look */
 }
 
 .globe-wrapper .text-sky-300 {
@@ -438,14 +435,7 @@
   margin-right: 0.25rem;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: .5;
-  }
-}
+/* Pulse animation removed for premium design */
 
 @media (max-width: 768px) {
   .globe-header {

@@ -142,7 +142,7 @@ const LaunchReport = ({ currentDay }) => {
       >
         <div className="pre-launch-section">
           <div className="pre-launch-header">
-            <h1>Launch Report Coming Soon! 🚀</h1>
+            <h1>Launch Report Coming Soon</h1>
             <p>Your comprehensive launch report will be available on day 14</p>
           </div>
           
@@ -244,25 +244,17 @@ const LaunchReport = ({ currentDay }) => {
       {/* Header */}
       <div className="report-header">
         <div className="header-content">
-          <h1>Launch Report 🎉</h1>
+          <h1>Launch Report</h1>
           <p>Your 14-day onboarding journey summary</p>
           <div className="header-actions">
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="action-button primary"
-            >
+            <button className="action-button primary">
               <Download size={20} />
               Download PDF
-            </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="action-button secondary"
-            >
+            </button>
+            <button className="action-button secondary">
               <Share size={20} />
               Share Report
-            </motion.button>
+            </button>
           </div>
         </div>
         

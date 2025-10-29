@@ -25,14 +25,9 @@ const Navigation = ({ currentDay }) => {
     <nav className="navigation">
       <div className="nav-container">
         <div className="nav-brand">
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
-            className="brand-icon"
-          >
+          <div className="brand-icon">
             <Rocket size={24} />
-          </motion.div>
+          </div>
           <div className="brand-text">
             <h2>Blister Launchpad</h2>
             <span className="day-counter">Day {currentDay}/14</span>
@@ -40,35 +35,22 @@ const Navigation = ({ currentDay }) => {
         </div>
 
         <div className="nav-links">
-          {navItems.map((item, index) => {
+          {navItems.map((item) => {
             const Icon = item.icon;
             const isActive = location.pathname === item.path;
-            
+
             return (
-              <motion.div
+              <Link
                 key={item.path}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                to={item.path}
+                className={`nav-link ${isActive ? 'active' : ''}`}
               >
-                <Link
-                  to={item.path}
-                  className={`nav-link ${isActive ? 'active' : ''}`}
-                  style={{
-                    '--active-color': getPhaseColor()
-                  }}
-                >
-                  <Icon size={20} />
-                  <span>{item.label}</span>
-                  {isActive && (
-                    <motion.div
-                      className="active-indicator"
-                      layoutId="activeIndicator"
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    />
-                  )}
-                </Link>
-              </motion.div>
+                <Icon size={20} />
+                <span>{item.label}</span>
+                {isActive && (
+                  <div className="active-indicator" />
+                )}
+              </Link>
             );
           })}
         </div>
@@ -81,21 +63,18 @@ const Navigation = ({ currentDay }) => {
                 cy="20"
                 r="16"
                 fill="none"
-                stroke="#e0e0e0"
+                stroke="#e5e7eb"
                 strokeWidth="3"
               />
-              <motion.circle
+              <circle
                 cx="20"
                 cy="20"
                 r="16"
                 fill="none"
-                stroke={getPhaseColor()}
+                stroke="#1a1a1a"
                 strokeWidth="3"
                 strokeLinecap="round"
                 strokeDasharray={`${(currentDay / 14) * 100} 100`}
-                initial={{ strokeDasharray: "0 100" }}
-                animate={{ strokeDasharray: `${(currentDay / 14) * 100} 100` }}
-                transition={{ duration: 1, delay: 0.5 }}
                 style={{ transform: 'rotate(-90deg)', transformOrigin: 'center' }}
               />
             </svg>
