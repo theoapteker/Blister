@@ -57,7 +57,7 @@ export default function LoginPage() {
           throw new Error('Signup successful but login failed. Please try logging in.')
         }
 
-        router.push('/auth/org-select')
+        router.push(`/auth/org-select?callbackUrl=${encodeURIComponent(callbackUrl)}`)
       } else {
         // Sign in
         const result = await signIn('credentials', {
@@ -71,7 +71,7 @@ export default function LoginPage() {
         }
 
         // Redirect to org selector or callback
-        router.push('/auth/org-select')
+        router.push(`/auth/org-select?callbackUrl=${encodeURIComponent(callbackUrl)}`)
       }
     } catch (err: any) {
       setError(err.message)

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Building2, ChevronRight, Crown, Users, User } from 'lucide-react'
 import { Role } from '@prisma/client'
@@ -10,6 +10,8 @@ import { Role } from '@prisma/client'
 export default function OrgSelectPage() {
   const { data: session, update } = useSession()
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const callbackUrl = searchParams.get('callbackUrl') || null
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
@@ -31,8 +33,10 @@ export default function OrgSelectPage() {
         (m) => m.organizationId === orgId
       )
 
-      // Redirect based on role
-      if (membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER) {
+      // Redirect to callback URL if provided, otherwise use role-based routing
+      if (callbackUrl) {
+        router.push(callbackUrl)
+      } else if (membership?.role === Role.ORG_ADMIN || membership?.role === Role.MANAGER) {
         router.push('/admin')
       } else {
         router.push('/launchpad')
