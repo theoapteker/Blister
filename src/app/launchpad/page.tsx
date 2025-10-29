@@ -1,11 +1,41 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Target, Users, Zap, Star, Clock, CheckCircle, Play } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import BuddyMatchingWizard from '@/components/BuddyMatchingWizard'
 
 export default function LaunchpadPage() {
   const { data: session } = useSession()
+  const [showBuddyWizard, setShowBuddyWizard] = useState(false)
+  const [hasBuddy, setHasBuddy] = useState(false)
+  const [buddyMatches, setBuddyMatches] = useState<any[]>([])
+
+  // Check if user has a buddy
+  useEffect(() => {
+    if (session) {
+      checkBuddyStatus()
+    }
+  }, [session])
+
+  const checkBuddyStatus = async () => {
+    try {
+      const response = await fetch('/api/buddies/request')
+      if (response.ok) {
+        const data = await response.json()
+        setBuddyMatches(data.matches || [])
+        setHasBuddy(data.matches && data.matches.length > 0)
+      }
+    } catch (error) {
+      console.error('Error checking buddy status:', error)
+    }
+  }
+
+  const handleBuddyWizardComplete = () => {
+    setShowBuddyWizard(false)
+    checkBuddyStatus()
+  }
 
   // Mock data - in production, this would come from the database based on membership
   const currentDay = 3
@@ -69,6 +99,11 @@ export default function LaunchpadPage() {
 
   const phaseInfo = getPhaseInfo(currentDay)
   const PhaseIcon = phaseInfo.icon
+
+  // Show wizard in fullscreen
+  if (showBuddyWizard) {
+    return <BuddyMatchingWizard onComplete={handleBuddyWizardComplete} />
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-8">
@@ -227,9 +262,12 @@ export default function LaunchpadPage() {
         <div>
           <h2 className="text-2xl font-bold text-gray-900 mb-4">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <button className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-4 rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2">
+            <button
+              onClick={() => setShowBuddyWizard(true)}
+              className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-4 rounded-xl font-semibold hover:from-indigo-600 hover:to-purple-700 transition-all flex items-center justify-center gap-2"
+            >
               <Users size={20} />
-              Meet Your Buddy
+              {hasBuddy ? 'View Your Buddy' : 'Find Your Buddy'}
             </button>
             <button className="bg-white border-2 border-gray-200 text-gray-700 p-4 rounded-xl font-semibold hover:border-indigo-500 hover:bg-indigo-50 transition-all flex items-center justify-center gap-2">
               <Target size={20} />

@@ -11,13 +11,15 @@ import {
   FileText,
   LogOut,
   Building2,
-  ChevronDown
+  ChevronDown,
+  UserPlus
 } from 'lucide-react'
 import Link from 'next/link'
 
 const navigation = [
   { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { name: 'Team Members', href: '/admin/team', icon: Users },
+  { name: 'Buddy Matches', href: '/admin/buddies', icon: UserPlus },
   { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
   { name: 'Content', href: '/admin/content', icon: FileText },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
