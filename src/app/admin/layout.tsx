@@ -11,7 +11,8 @@ import {
   FileText,
   LogOut,
   Building2,
-  ChevronDown
+  ChevronDown,
+  Mail
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -20,6 +21,7 @@ const navigation = [
   { name: 'Team Members', href: '/admin/team', icon: Users },
   { name: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
   { name: 'Content', href: '/admin/content', icon: FileText },
+  { name: 'Employee Emails', href: '/admin/employee-emails', icon: Mail },
   { name: 'Settings', href: '/admin/settings', icon: Settings },
 ]
 
