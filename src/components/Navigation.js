@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Home, Users, Map, Globe, FileText, Rocket, LogOut, User } from 'lucide-react';
+import { Home, Users, Map, Globe, FileText, Rocket, LogOut, User, Settings } from 'lucide-react';
 import { useUser } from '../context/UserContext';
 import './Navigation.css';
 
@@ -9,13 +9,19 @@ const Navigation = ({ currentDay, onLogout }) => {
   const location = useLocation();
   const { user } = useUser();
 
-  const navItems = [
+  const regularNavItems = [
     { path: '/', label: 'Dashboard', icon: Home },
     { path: '/buddy-portal', label: 'Buddy Portal', icon: Users },
     { path: '/orbit-map', label: 'Orbit Map', icon: Map },
     { path: '/orbit-globe', label: 'Orbit Globe', icon: Globe },
     { path: '/launch-report', label: 'Launch Report', icon: FileText }
   ];
+
+  const adminNavItems = [
+    { path: '/admin', label: 'Admin Panel', icon: Settings }
+  ];
+
+  const navItems = user.role === 'admin' ? adminNavItems : regularNavItems;
 
   const getPhaseColor = () => {
     if (currentDay <= 3) return '#667eea';

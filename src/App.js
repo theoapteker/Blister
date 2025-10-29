@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import Dashboard from './components/Dashboard';
 import BuddyPortal from './components/BuddyPortal';
@@ -8,11 +8,12 @@ import LaunchReport from './components/LaunchReport';
 import OrbitGlobe from './components/OrbitGlobe';
 import Navigation from './components/Navigation';
 import Login from './components/Login';
+import AdminPanel from './components/AdminPanel';
 import { UserProvider, useUser } from './context/UserContext';
 import './App.css';
 
 function AppContent() {
-  const { isAuthenticated, login, logout } = useUser();
+  const { isAuthenticated, user, login, logout } = useUser();
   const [currentDay, setCurrentDay] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -60,25 +61,37 @@ function AppContent() {
         <main className="main-content">
           <AnimatePresence mode="wait">
             <Routes>
-              <Route 
-                path="/" 
-                element={<Dashboard currentDay={currentDay} setCurrentDay={setCurrentDay} />} 
+              <Route
+                path="/"
+                element={
+                  user.role === 'admin'
+                    ? <Navigate to="/admin" replace />
+                    : <Dashboard currentDay={currentDay} setCurrentDay={setCurrentDay} />
+                }
               />
-              <Route 
-                path="/buddy-portal" 
-                element={<BuddyPortal currentDay={currentDay} />} 
+              <Route
+                path="/admin"
+                element={
+                  user.role === 'admin'
+                    ? <AdminPanel />
+                    : <Navigate to="/" replace />
+                }
               />
-              <Route 
-                path="/orbit-map" 
-                element={<OrbitMap currentDay={currentDay} />} 
+              <Route
+                path="/buddy-portal"
+                element={<BuddyPortal currentDay={currentDay} />}
               />
-              <Route 
-                path="/orbit-globe" 
-                element={<OrbitGlobe currentDay={currentDay} />} 
+              <Route
+                path="/orbit-map"
+                element={<OrbitMap currentDay={currentDay} />}
               />
-              <Route 
-                path="/launch-report" 
-                element={<LaunchReport currentDay={currentDay} />} 
+              <Route
+                path="/orbit-globe"
+                element={<OrbitGlobe currentDay={currentDay} />}
+              />
+              <Route
+                path="/launch-report"
+                element={<LaunchReport currentDay={currentDay} />}
               />
             </Routes>
           </AnimatePresence>
