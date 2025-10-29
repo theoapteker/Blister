@@ -128,7 +128,7 @@ const OrbitGlobe = ({ currentDay, connections = [], points = [], onNodeClick }) 
       // Mount
       if (containerRef.current) {
         containerRef.current.innerHTML = '';
-        containerRef.current.appendChild(g);
+        g(containerRef.current);
       }
       
       globeRef.current = g;
