@@ -7,10 +7,12 @@ import OrbitMap from './components/OrbitMap';
 import LaunchReport from './components/LaunchReport';
 import OrbitGlobe from './components/OrbitGlobe';
 import Navigation from './components/Navigation';
-import { UserProvider } from './context/UserContext';
+import Login from './components/Login';
+import { UserProvider, useUser } from './context/UserContext';
 import './App.css';
 
-function App() {
+function AppContent() {
+  const { isAuthenticated, login, logout } = useUser();
   const [currentDay, setCurrentDay] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,39 +49,49 @@ function App() {
     );
   }
 
+  if (!isAuthenticated) {
+    return <Login onLogin={login} />;
+  }
+
+  return (
+    <Router>
+      <div className="app">
+        <Navigation currentDay={currentDay} onLogout={logout} />
+        <main className="main-content">
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route 
+                path="/" 
+                element={<Dashboard currentDay={currentDay} setCurrentDay={setCurrentDay} />} 
+              />
+              <Route 
+                path="/buddy-portal" 
+                element={<BuddyPortal currentDay={currentDay} />} 
+              />
+              <Route 
+                path="/orbit-map" 
+                element={<OrbitMap currentDay={currentDay} />} 
+              />
+              <Route 
+                path="/orbit-globe" 
+                element={<OrbitGlobe currentDay={currentDay} />} 
+              />
+              <Route 
+                path="/launch-report" 
+                element={<LaunchReport currentDay={currentDay} />} 
+              />
+            </Routes>
+          </AnimatePresence>
+        </main>
+      </div>
+    </Router>
+  );
+}
+
+function App() {
   return (
     <UserProvider>
-      <Router>
-        <div className="app">
-          <Navigation currentDay={currentDay} />
-          <main className="main-content">
-            <AnimatePresence mode="wait">
-              <Routes>
-                <Route 
-                  path="/" 
-                  element={<Dashboard currentDay={currentDay} setCurrentDay={setCurrentDay} />} 
-                />
-                <Route 
-                  path="/buddy-portal" 
-                  element={<BuddyPortal currentDay={currentDay} />} 
-                />
-                <Route 
-                  path="/orbit-map" 
-                  element={<OrbitMap currentDay={currentDay} />} 
-                />
-                <Route 
-                  path="/orbit-globe" 
-                  element={<OrbitGlobe currentDay={currentDay} />} 
-                />
-                <Route 
-                  path="/launch-report" 
-                  element={<LaunchReport currentDay={currentDay} />} 
-                />
-              </Routes>
-            </AnimatePresence>
-          </main>
-        </div>
-      </Router>
+      <AppContent />
     </UserProvider>
   );
 }

@@ -11,10 +11,13 @@ export const useUser = () => {
 };
 
 export const UserProvider = ({ children }) => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState({
     id: 1,
     name: 'Alex Chen',
-    role: 'Software Engineer',
+    email: 'alex@blister.com',
+    role: 'user',
+    jobTitle: 'Software Engineer',
     department: 'Engineering',
     startDate: new Date(),
     avatar: '👨‍💻',
@@ -31,6 +34,30 @@ export const UserProvider = ({ children }) => {
     buddy: null,
     dailyStreak: 0
   });
+
+  // Admin user data
+  const adminUser = {
+    id: 999,
+    name: 'Admin User',
+    email: 'admin@blister.com',
+    role: 'admin',
+    jobTitle: 'System Administrator',
+    department: 'IT',
+    startDate: new Date(),
+    avatar: '👑',
+    timezone: 'PST',
+    interests: ['Management', 'Analytics', 'Strategy', 'Leadership'],
+    currentPhase: 'productivity',
+    progress: {
+      confidence: 100,
+      connection: 100,
+      productivity: 100
+    },
+    completedTasks: [1, 2, 3, 4],
+    badges: ['admin', 'supervisor', 'mentor'],
+    buddy: null,
+    dailyStreak: 30
+  };
 
   const [tasks, setTasks] = useState([
     {
@@ -160,6 +187,46 @@ export const UserProvider = ({ children }) => {
     }));
   };
 
+  const login = (userData) => {
+    if (userData.role === 'admin') {
+      setUser(adminUser);
+    } else {
+      setUser(prev => ({
+        ...prev,
+        ...userData,
+        jobTitle: 'Software Engineer',
+        department: 'Engineering'
+      }));
+    }
+    setIsAuthenticated(true);
+  };
+
+  const logout = () => {
+    setIsAuthenticated(false);
+    setUser({
+      id: 1,
+      name: 'Alex Chen',
+      email: 'alex@blister.com',
+      role: 'user',
+      jobTitle: 'Software Engineer',
+      department: 'Engineering',
+      startDate: new Date(),
+      avatar: '👨‍💻',
+      timezone: 'PST',
+      interests: ['Gaming', 'Photography', 'Coffee', 'Hiking'],
+      currentPhase: 'confidence',
+      progress: {
+        confidence: 0,
+        connection: 0,
+        productivity: 0
+      },
+      completedTasks: [],
+      badges: [],
+      buddy: null,
+      dailyStreak: 0
+    });
+  };
+
   const value = {
     user,
     setUser,
@@ -170,7 +237,10 @@ export const UserProvider = ({ children }) => {
     completeTask,
     assignBuddy,
     addBadge,
-    updateProgress
+    updateProgress,
+    isAuthenticated,
+    login,
+    logout
   };
 
   return (
