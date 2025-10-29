@@ -1,0 +1,380 @@
+.orbit-map {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.orbit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.orbit-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.orbit-header p {
+  color: #666;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.orbit-stats {
+  display: flex;
+  gap: 2rem;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.phase-selector {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.phase-button {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.phase-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.phase-button.selected {
+  border-color: var(--phase-color);
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+
+.phase-button.completed {
+  border-color: #00d4aa;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, rgba(0, 212, 170, 0.1) 100%);
+}
+
+.phase-button.active {
+  border-color: var(--phase-color);
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.2);
+}
+
+.phase-button.locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.phase-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  background: var(--phase-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  flex-shrink: 0;
+}
+
+.phase-info {
+  flex: 1;
+}
+
+.phase-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.25rem 0;
+}
+
+.phase-info p {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0;
+}
+
+.phase-status {
+  color: #666;
+}
+
+.phase-button.completed .phase-status {
+  color: #00d4aa;
+}
+
+.phase-button.active .phase-status {
+  color: var(--phase-color);
+}
+
+.phase-details {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.phase-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.phase-title-section {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+}
+
+.phase-color-bar {
+  width: 6px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.phase-title-section h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem 0;
+}
+
+.phase-title-section p {
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.phase-progress {
+  display: flex;
+  align-items: center;
+}
+
+.progress-circle {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.milestones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.milestone-card {
+  padding: 1.5rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.milestone-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+}
+
+.milestone-card.completed {
+  border-color: #00d4aa;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.05) 0%, rgba(0, 212, 170, 0.1) 100%);
+}
+
+.milestone-card.available {
+  border-color: #667eea;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+}
+
+.milestone-card.locked {
+  opacity: 0.6;
+}
+
+.milestone-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.milestone-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.milestone-card.completed .milestone-icon {
+  background: #00d4aa;
+  color: white;
+}
+
+.milestone-card.available .milestone-icon {
+  background: #667eea;
+  color: white;
+}
+
+.milestone-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.milestone-day {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+}
+
+.milestone-status {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  background: #f0f0f0;
+  color: #666;
+}
+
+.milestone-card.completed .milestone-status {
+  background: #00d4aa;
+  color: white;
+}
+
+.milestone-card.available .milestone-status {
+  background: #667eea;
+  color: white;
+}
+
+.milestone-card h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.milestone-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.milestone-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.milestone-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.completed-badge,
+.locked-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.completed-badge {
+  background: #00d4aa;
+  color: white;
+}
+
+.locked-badge {
+  background: #f0f0f0;
+  color: #666;
+}
+
+@media (max-width: 768px) {
+  .orbit-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .orbit-stats {
+    justify-content: space-around;
+  }
+  
+  .phase-selector {
+    grid-template-columns: 1fr;
+  }
+  
+  .phase-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .phase-title-section {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .phase-color-bar {
+    width: 100%;
+    height: 6px;
+  }
+  
+  .milestones-grid {
+    grid-template-columns: 1fr;
+  }
+}
