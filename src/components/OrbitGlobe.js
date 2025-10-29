@@ -10,6 +10,7 @@ const OrbitGlobe = ({ currentDay, connections = [], points = [], onNodeClick }) 
   const [selectedRegion, setSelectedRegion] = useState('global');
   const [showLegend, setShowLegend] = useState(true);
   const [arcTooltips, setArcTooltips] = useState({});
+  const [selectedLocation, setSelectedLocation] = useState(null);
 
   // Enhanced sample data with onboarding connections
   const defaultPoints = [
@@ -85,7 +86,7 @@ const OrbitGlobe = ({ currentDay, connections = [], points = [], onNodeClick }) 
     let cleanup;
     
     (async () => {
-      const { default: Globe } = await import('globe.gl');
+      const Globe = (await import('globe.gl')).default;
       
       const g = Globe()
         .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
@@ -110,7 +111,21 @@ const OrbitGlobe = ({ currentDay, connections = [], points = [], onNodeClick }) 
         .pointColor(d => d.color || '#7aa2ff')
         .pointResolution(8)
         .pointLabel(d => `${d.name}\n${d.hires || 0} new hires`)
-        .onPointClick((d) => onNodeClick?.(d))
+        .onPointHover((d, prevD) => {
+          // Add hover effect - make point larger
+          if (d) {
+            g.pointRadius(point => point === d ? Math.max(point.value * 0.5, 2) : Math.max(point.value * 0.3, 1));
+          } else if (prevD) {
+            g.pointRadius(point => Math.max(point.value * 0.3, 1));
+          }
+        })
+        .onPointClick((d) => {
+          setSelectedLocation(d);
+          onNodeClick?.(d);
+        })
+        .onGlobeClick(() => {
+          setSelectedLocation(null);
+        })
         .onArcClick((d) => {
           setArcTooltips(prev => ({
             ...prev,
@@ -291,6 +306,49 @@ const OrbitGlobe = ({ currentDay, connections = [], points = [], onNodeClick }) 
               >
                 Hide Legend
               </button>
+            </div>
+          )}
+
+          {/* Location Details Panel */}
+          {selectedLocation && (
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 bg-black/90 backdrop-blur rounded-xl p-6 text-white max-w-sm border border-white/20">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-xl font-bold text-sky-300">{selectedLocation.name}</h3>
+                <button
+                  onClick={() => setSelectedLocation(null)}
+                  className="text-gray-400 hover:text-white text-xl font-bold"
+                >
+                  ×
+                </button>
+              </div>
+              
+              <div className="space-y-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 rounded-full" style={{ backgroundColor: selectedLocation.color }} />
+                  <span className="text-lg font-semibold">{selectedLocation.hires || 0} New Hires</span>
+                </div>
+                
+                <div className="text-sm text-gray-300">
+                  <div className="flex justify-between">
+                    <span>Connection Strength:</span>
+                    <span className="text-sky-300">{selectedLocation.value || 0}/10</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Latitude:</span>
+                    <span className="text-gray-400">{selectedLocation.lat.toFixed(4)}°</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Longitude:</span>
+                    <span className="text-gray-400">{selectedLocation.lng.toFixed(4)}°</span>
+                  </div>
+                </div>
+                
+                <div className="pt-2 border-t border-white/20">
+                  <p className="text-xs text-gray-400">
+                    Click anywhere on the globe to close this panel
+                  </p>
+                </div>
+              </div>
             </div>
           )}
 
